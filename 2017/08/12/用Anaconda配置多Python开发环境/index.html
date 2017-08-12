@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://www.gaoke.online/2017/08/12/用Anaconda配置多Python开发环境/index.html">
 <meta property="og:site_name" content="摆步">
 <meta property="og:description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
-<meta property="og:updated_time" content="2017-08-12T09:11:14.693Z">
+<meta property="og:updated_time" content="2017-08-12T12:02:07.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Anaconda配置多Python开发环境">
 <meta name="twitter:description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
@@ -362,10 +362,14 @@
 <p>这样我就有了一个名字为 py3 的 Python 3 环境和一个叫 py2 的 Python 2 环境。</p>
 <h1 id="激活环境"><a href="#激活环境" class="headerlink" title="激活环境"></a>激活环境</h1><p>如何激活环境呢？</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 激活 test 环境</span></div><div class="line">activate py2  <span class="comment"># windows</span></div><div class="line">source activate py2 <span class="comment"># linux/mac</span></div></pre></td></tr></table></figure>
+<p>要注意的是此命令要在 <strong>CMD</strong> 命令提示符下才有效，亲测在 PowerShell 下无法顺利激活环境。</p>
 <h1 id="切换环境"><a href="#切换环境" class="headerlink" title="切换环境"></a>切换环境</h1><p>好了，知道如何激活了，那如何切换到另外一个环境呢（py2 to py3）？也很简单：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 切换到python3</span></div><div class="line">activate py3</div></pre></td></tr></table></figure>
+<p>如要切换到 root 环境，则：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deactivate</div></pre></td></tr></table></figure>
 <h1 id="查看所在环境"><a href="#查看所在环境" class="headerlink" title="查看所在环境"></a>查看所在环境</h1><p>建立了几个 Python 开发环境，那么如何查看都有哪些？</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conda info -e</div></pre></td></tr></table></figure>
+<p>这会列出所有环境，标有*号的是现在所在环境。</p>
 <h1 id="在激活环境下安装包"><a href="#在激活环境下安装包" class="headerlink" title="在激活环境下安装包"></a>在激活环境下安装包</h1><p>conda 的包管理功能是对 pip 的一种补充，如果当前已经激活了某个Python环境，那么就可以在当前环境开始安装第三方包。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 安装 matplotlib </span></div><div class="line">conda install matplotlib</div><div class="line"><span class="comment"># 查看已安装的包</span></div><div class="line">conda list </div><div class="line"><span class="comment"># 包更新</span></div><div class="line">conda update matplotlib</div><div class="line"><span class="comment"># 删除包</span></div><div class="line">conda remove matplotlib</div></pre></td></tr></table></figure>
 <p>对于那些用 pip 无法安装成功的模块你都可以尝试用 conda 来安装，如果用 conda 找不到相应的包，当然你继续选择 pip 来安装包也是没问题的。</p>
