@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://www.gaoke.online/2017/08/12/用Anaconda配置多Python开发环境/index.html">
 <meta property="og:site_name" content="摆步">
 <meta property="og:description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
-<meta property="og:updated_time" content="2017-08-12T12:02:07.906Z">
+<meta property="og:updated_time" content="2017-08-19T09:05:13.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Anaconda配置多Python开发环境">
 <meta name="twitter:description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
@@ -359,6 +359,8 @@
 <p>完成上述，就可以创建新环境啦。</p>
 <h1 id="创建新环境"><a href="#创建新环境" class="headerlink" title="创建新环境"></a>创建新环境</h1><p>使用 conda 创建新环境的方法如下：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 基于 python3 创建一个名为 py3 的环境</span></div><div class="line">conda create --name py3 python=<span class="number">3</span></div><div class="line"></div><div class="line"><span class="comment"># 基于 python2 创建一个名为 py2 的环境</span></div><div class="line">conda create --name py2 python=<span class="number">2.7</span></div></pre></td></tr></table></figure>
+<p>或者要创建 Anaconda 环境：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 基于 python3 创建一个名为 py3 的环境</span></div><div class="line">conda create -n py3 python=<span class="number">3</span> anaconda</div><div class="line"></div><div class="line"><span class="comment"># 基于 python2 创建一个名为 py2 的环境</span></div><div class="line">conda create -n py2 python=<span class="number">2</span> anaconda</div></pre></td></tr></table></figure>
 <p>这样我就有了一个名字为 py3 的 Python 3 环境和一个叫 py2 的 Python 2 环境。</p>
 <h1 id="激活环境"><a href="#激活环境" class="headerlink" title="激活环境"></a>激活环境</h1><p>如何激活环境呢？</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 激活 test 环境</span></div><div class="line">activate py2  <span class="comment"># windows</span></div><div class="line">source activate py2 <span class="comment"># linux/mac</span></div></pre></td></tr></table></figure>
@@ -515,7 +517,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -528,7 +530,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
