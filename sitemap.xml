@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.gaoke.online/about/index.html</loc>
+    
+    <lastmod>2017-09-01T07:35:50.270Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.gaoke.online/2017/08/20/%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E4%B8%8A%E8%BF%90%E8%A1%8CJupyter-Notebook%E5%B9%B6%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</loc>
     
     <lastmod>2017-08-20T01:23:54.037Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://www.gaoke.online/2017/06/22/LOLLAPALOOZA/</loc>
     
     <lastmod>2017-06-22T14:22:49.547Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.gaoke.online/about/index.html</loc>
-    
-    <lastmod>2017-06-06T05:15:17.823Z</lastmod>
     
   </url>
   
