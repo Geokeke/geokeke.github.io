@@ -1,0 +1,892 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,阿里云,CentOS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="粗略整理了 Linux 的基础命令行。">
+<meta name="keywords" content="Linux,阿里云,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Liunx命令行基础">
+<meta property="og:url" content="http://www.gaoke.online/2017/08/19/cjtgvsfj40003pg0c0367fme1/index.html">
+<meta property="og:site_name" content="GaoKe">
+<meta property="og:description" content="粗略整理了 Linux 的基础命令行。">
+<meta property="og:updated_time" content="2017-08-20T01:22:08.306Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Liunx命令行基础">
+<meta name="twitter:description" content="粗略整理了 Linux 的基础命令行。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.gaoke.online/2017/08/19/cjtgvsfj40003pg0c0367fme1/"/>
+
+
+
+
+
+  <title>Liunx命令行基础 | GaoKe</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-100748272-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2813c77621db66d1f31a4a83158a4635";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoKe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">高珂的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoke.online/2017/08/19/cjtgvsfj40003pg0c0367fme1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Ke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoKe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Liunx命令行基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T17:24:03+08:00">
+                2017-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>粗略整理了 Linux 的基础命令行。</p>
+<a id="more"></a>
+<p>出于种种目的（在自己的服务器上部署博客，在服务器上运行计算量大的机器学习代码，学习 Linux……），我在阿里云上利用学生优惠购买了半年的云服务器 ECS ，为什么不买一年的呢，因为阿里云提示我明年6月份就毕业了，不能买一年的，于是我只好买了半年的。</p>
+<p>服务器装了 CentOS 7 的系统，是个 Linux。但是我对于这个“仰慕已久”的系统一窍不通，于是学起来！这篇是我学习Liunx命令行的笔记。</p>
+<p>怎样与服务器远程连接呢？首先在网页的阿里云控制台上可以进行远程连接，但查网页上推荐的是用 Xshell 这款软件。如何用 Xshell 连接阿里云服务器在这里就不表了，值得注意的是要记得打开服务器的端口。我第一次连接就是没有打开端口导致连接不成功。</p>
+<p>下面就正式开始吧。</p>
+<h1 id="一些-Linux-命令"><a href="#一些-Linux-命令" class="headerlink" title="一些 Linux 命令"></a>一些 Linux 命令</h1><h2 id="断开与服务器的连接"><a href="#断开与服务器的连接" class="headerlink" title="断开与服务器的连接"></a>断开与服务器的连接</h2><p>首先，连接成功后如何<strong>断开连接</strong>呢？</p>
+<h3 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h3><p>有两种方式，一种是用 exit 命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit</div></pre></td></tr></table></figure>
+<p>另一种就是 Ctrl + D，也可以断开连接。</p>
+<h2 id="从网络下载文件"><a href="#从网络下载文件" class="headerlink" title="从网络下载文件"></a>从网络下载文件</h2><p>有 curl 和 wget。</p>
+<h3 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h3><p>如何<strong>从网络上下载文件</strong>呢，需要用到 curl 命令，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://udacity.github.io/ud595-shell/stuff.zip -o things.zip</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# curl http://udacity.github.io/ud595-shell/stuff.zip -o things.zip</div><div class="line"><span class="meta">  %</span> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">100  144k  100  144k    0     0  65056      0  0:00:02  0:00:02 --:--:-- 65071</div></pre></td></tr></table></figure>
+<h3 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h3><p>用 wget 命令也可以下载文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda2-latest-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+<p>上面是下载了 Minniconda，但在运行安装命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bash Miniconda2-latest-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+<p>后，发生了错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tar (child): bzip2: Cannot exec: No such file or directory </div><div class="line">tar (child): Error is not recoverable: exiting now </div><div class="line">tar: Child returned status 2 </div><div class="line">tar: Error is not recoverable: exiting now</div></pre></td></tr></table></figure>
+<p>原因是没有安装 bzip2 所致。运行命令安装 bzip2：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install bzip2</div></pre></td></tr></table></figure>
+<p>就可以顺利安装 Miniconda 啦。</p>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p><strong>列出文件</strong>用 ls 命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# ls</div><div class="line">miniconda2  Miniconda2-latest-Linux-x86_64.sh  Miniconda-latest-Linux-x86_64.sh</div><div class="line">[root@Linux-Gaoke ~]# curl http://udacity.github.io/ud595-shell/stuff.zip -o things.zip</div><div class="line"><span class="meta">  %</span> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">100  144k  100  144k    0     0  65056      0  0:00:02  0:00:02 --:--:-- 65071</div></pre></td></tr></table></figure>
+<p>列出所有文件（包括隐藏）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -a</div></pre></td></tr></table></figure>
+<p>或：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls --all</div></pre></td></tr></table></figure>
+<h1 id="More-Commands"><a href="#More-Commands" class="headerlink" title="More Commands"></a>More Commands</h1><h3 id="date："><a href="#date：" class="headerlink" title="date："></a>date：</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]<span class="comment"># date</span></div><div class="line">Sat Aug 19 12:12:32 CST 2017</div></pre></td></tr></table></figure>
+<h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname:"></a>hostname:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# hostname</div><div class="line">Linux-Gaoke</div></pre></td></tr></table></figure>
+<h3 id="expr"><a href="#expr" class="headerlink" title="expr:"></a>expr:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# expr 2 + 2</div><div class="line">4</div></pre></td></tr></table></figure>
+<p>expr命令为Linux中的命令，一般用于整数值计算，但也可用于字符串操作。 </p>
+<h3 id="host"><a href="#host" class="headerlink" title="host:"></a>host:</h3><p>命令返回一个主机的网际地址（当Hostname 参数被指定时），或返回主机名（当Address参数被指定时）。</p>
+<p>host这个程序是 bind-utils包里面的 ，所以要先安装 bind-utils ：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install bind-utils</div></pre></td></tr></table></figure>
+<p>然后就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# host udacity.com</div><div class="line">udacity.com has address 45.79.141.183</div><div class="line">udacity.com mail is handled by 20 alt2.aspmx.l.google.com.</div><div class="line">udacity.com mail is handled by 20 alt1.aspmx.l.google.com.</div><div class="line">udacity.com mail is handled by 30 aspmx3.googlemail.com.</div><div class="line">udacity.com mail is handled by 30 aspmx2.googlemail.com.</div><div class="line">udacity.com mail is handled by 10 aspmx.l.google.com.</div></pre></td></tr></table></figure>
+<p>再看看我的博客地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# host gaoke.online</div><div class="line">gaoke.online is an alias for geokeke.github.io.</div><div class="line">geokeke.github.io is an alias for sni.github.map.fastly.net.</div><div class="line">sni.github.map.fastly.net has address 151.101.73.147</div><div class="line">sni.github.map.fastly.net has IPv6 address 2a04:4e42:11::403</div></pre></td></tr></table></figure>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo:"></a>echo:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# echo you rock</div><div class="line">you rock</div></pre></td></tr></table></figure>
+<h3 id="bash"><a href="#bash" class="headerlink" title="bash:"></a>bash:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# bash --version</div><div class="line">GNU bash, version 4.2.46(1)-release (x86_64-redhat-linux-gnu)</div><div class="line">Copyright (C) 2011 Free Software Foundation, Inc.</div><div class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</div><div class="line"></div><div class="line">This is free software; you are free to change and redistribute it.</div><div class="line">There is NO WARRANTY, to the extent permitted by law.</div></pre></td></tr></table></figure>
+<h3 id="uname"><a href="#uname" class="headerlink" title="uname:"></a>uname:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# uname</div><div class="line">Linux</div></pre></td></tr></table></figure>
+<p>uname 是Linux命令，用于显示当前操作系统名称。</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history:"></a>history:</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# history </div><div class="line">    1  python -v</div><div class="line">    2  man man</div><div class="line">    3  i love you xuyuan</div><div class="line">    4  exit</div><div class="line">    5  ls</div><div class="line">    6  curl http://udacity.github.io/ud595-shell/stuff.zip -o things.zip</div><div class="line">    7  ls</div><div class="line">    8  date</div><div class="line">    9  hostname</div><div class="line">   10  expr 2+2</div><div class="line">   11  expr 2 + 2</div><div class="line">   12  host udacity.com</div><div class="line">   13  echo you rock</div><div class="line">   14  bash --version</div><div class="line">   15  uname</div><div class="line">   16  history</div></pre></td></tr></table></figure>
+<p>查看命令历史。也可以用 Ctrl + R，然后搜索历史。还可以用上下箭头查看输入过的命令。</p>
+<h3 id="rm-删除："><a href="#rm-删除：" class="headerlink" title="rm 删除："></a>rm 删除：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm word.txt</div></pre></td></tr></table></figure>
+<h1 id="Shell-命令与-Python-函数的异同"><a href="#Shell-命令与-Python-函数的异同" class="headerlink" title="Shell 命令与 Python 函数的异同"></a>Shell 命令与 Python 函数的异同</h1><h2 id="相同点："><a href="#相同点：" class="headerlink" title="相同点："></a>相同点：</h2><ul>
+<li>都是代码单元</li>
+<li>都有名称</li>
+<li>都能接受变量</li>
+</ul>
+<h2 id="不同点："><a href="#不同点：" class="headerlink" title="不同点："></a>不同点：</h2><ul>
+<li>环境不同</li>
+<li>目的不同</li>
+</ul>
+<h3 id="uptime："><a href="#uptime：" class="headerlink" title="uptime："></a>uptime：</h3><p>显示系统已经运行了多长时间，它依次显示下列信息：当前时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟和15分钟内的平均负载。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# uptime</div><div class="line"> 13:34:55 up 16:57,  3 users,  load average: 0.00, 0.01, 0.05</div></pre></td></tr></table></figure>
+<h1 id="Linux-中的文件操作"><a href="#Linux-中的文件操作" class="headerlink" title="Linux 中的文件操作"></a>Linux 中的文件操作</h1><h2 id="解压、合并等"><a href="#解压、合并等" class="headerlink" title="解压、合并等"></a>解压、合并等</h2><h3 id="解压文件-unzip："><a href="#解压文件-unzip：" class="headerlink" title="解压文件 unzip："></a>解压文件 unzip：</h3><p>Linux 系统没有自带的压缩解压工具；需要我们自己安装；当用到zip或者unzip如果没有安装就会出现unzip: Command Not Found 或 zip: Command Not Found;出现这个事因为没有安装unzip和zip。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y unzip zip</div></pre></td></tr></table></figure>
+<p>然后就可以用了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# unzip things.zip </div><div class="line">Archive:  things.zip</div><div class="line">  inflating: bivalves.txt            </div><div class="line">  inflating: cephalopods.txt         </div><div class="line">  inflating: gastropods.txt          </div><div class="line">  inflating: mustelidae.txt          </div><div class="line"> extracting: .secret                 </div><div class="line">   creating: ocean/</div><div class="line">   creating: ocean/stuff/</div><div class="line">   creating: ocean/stuff/misc/</div><div class="line"> extracting: ocean/stuff/otters      </div><div class="line"> extracting: ocean/water             </div><div class="line">   creating: junk/</div><div class="line">   creating: junk/parts/</div><div class="line">   creating: junk/parts/a/</div><div class="line"> extracting: junk/parts/a/apple-cores  </div><div class="line">   creating: junk/parts/b/</div><div class="line"> extracting: junk/parts/b/banana-peels  </div><div class="line">   creating: junk/parts/c/</div><div class="line"> extracting: junk/parts/c/clam-shells  </div><div class="line">   creating: globbing/</div><div class="line"> extracting: globbing/app.css        </div><div class="line"> extracting: globbing/app.html       </div><div class="line"> extracting: globbing/app.js         </div><div class="line"> extracting: globbing/bean.png       </div><div class="line"> extracting: globbing/bear.png       </div><div class="line"> extracting: globbing/beer.png       </div><div class="line"> extracting: globbing/bees.png       </div><div class="line"> extracting: globbing/DAVE.JPG       </div><div class="line"> extracting: globbing/favicon.png    </div><div class="line"> extracting: globbing/index.html     </div><div class="line"> extracting: globbing/JADE.jpg       </div><div class="line"> extracting: globbing/john.jpg       </div><div class="line"> extracting: globbing/rose.JPG       </div><div class="line">  inflating: gastropods_draft.txt    </div><div class="line">  inflating: TheWindintheWillows.txt</div></pre></td></tr></table></figure>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat :"></a>cat :</h3><p>cat 是 concatenate （合并）的缩写，cat主要有三大功能：</p>
+<ul>
+<li><p>一次显示整个文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat filename</div></pre></td></tr></table></figure>
+</li>
+<li><p>从键盘创建一个文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat &gt; filename</div></pre></td></tr></table></figure>
+</li>
+<li><p>将几个文件合并为一个文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat file1 file2 &gt; file</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在服务器中运行：<br> <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# cat bivalves.txt gastropods_draft.txt </div><div class="line">California Mussel: A large edible mussel, a marine bivalve mollusk in the family Mytilidae. This species is native to the west coast of North America, occurring from northern Mexico to the Aleutian Islands of Alaska.</div><div class="line">Common Cockle: Cerastoderma edule, commonly known as the common cockle, is a species of edible saltwater clam, a marine bivalve mollusc in the family Cardiidae, the cockles.</div><div class="line">This species is found in coastal areas of the eastern Atlantic Ocean.</div><div class="line">Giant Clam: The giant clam (Tridacna gigas), known as pā’ua in Cook Islands Māori, is a clam that is the largest living bivalve mollusk. T. gigas is one of the most endangered clam species. Antonio Pigafetta documented these in his journal as early as 1521.</div><div class="line">Geoduck: A species of very large, edible, saltwater clam in the family Hiatellidae. The geoduck is native to the west coast of North America. The geoduck is both one of the largest clams in the world, and one of the longest-lived animals of any type.</div><div class="line">Pearl Oyster: Pinctada is a genus of saltwater clams, marine bivalve molluscs in the family Pteriidae, the pearl oysters. These oysters have a strong inner shell layer composed of nacre, also known as "mother of pearl". Pearl oysters are not closely related to either the edible oysters of family.</div><div class="line">Pacific Razor Clam: The Pacific razor clam, Siliqua patula, is a species of large edible marine bivalve mollusc in the family Pharidae. Pacific razor clams are highly desirable and edible, collected both commercially and by recreational harvesters. Razor clams, like other shellfish, may sometimes accumulate dangerous levels of domoic acid, a marine toxin.</div><div class="line">Quahog: The hard clam (Mercenaria mercenaria), also known as a quahog (or quahaug), round clam, or hard-shell (or hard-shelled) clam, is an edible marine bivalve mollusk that is native to the eastern shores of North America and Central America.</div><div class="line">Yessoi Scallop: Patinopecten yessoensis (Yesso scallop, Giant Ezo scallop, Ezo giant scallop) is a species of scallop. Its name Yesso/Ezo refers to its being found north of Japan. Its tissues bioaccumulate algal yessotoxins, which are studied extensively.</div><div class="line">Zebra Mussel: The zebra mussel (Dreissena polymorpha) is a small freshwater mussel. This species was originally native to the lakes of southern Russia. However, the zebra mussel has been accidentally introduced to numerous other areas, and has become an invasive species in many different countries worldwide.</div><div class="line"></div><div class="line">Source: Wikipedia, The Free Encyclopedia</div><div class="line">Banana Slug: Banana slug is a common name for three North American species of terrestrial slug in the genus Ariolimax. These slugs are often yellow in color and are sometimes spotted with brown, like a ripe (or overripe) banana.</div><div class="line">Ghost Slug: The ghost slug, Selenochlamys ysbryda, is a species of predatory air-breathing land slug. Unlike the majority of slugs, it is a carnivore, feeding on earthworms using its blade-like teeth.</div><div class="line">Limpet: A limpet is an aquatic snail with a shell that is broadly conical in shape. "Limpet" informally refers to any gastropod whose shell has no obvious coiling, like the coiling which can be seen in the shells of garden snails or winkles.</div><div class="line">Nudibranch: A nudibranch is a member of the Nudibranchia, a group of soft-bodied, marine gastropod mollusks which shed their shells after their larval stage. They are noted for their often extraordinary colours and striking forms.</div><div class="line">Sea Snail: Sea snail is a common name for snails that normally live in saltwater, in other words marine gastropods. The taxonomic class Gastropoda also includes snails that live in other habitats, such as land snails and freshwater snails. Many species of sea snails are edible and exploited as food sources by humans.</div><div class="line"></div><div class="line">Source: Wikipedia, The Free Encyclopedia</div></pre></td></tr></table></figure></p>
+<p>打印出了全部的文本内容。但是我还没看这里说了些啥，后面看看哈哈。</p>
+<p>Tip：输入命令时，可用按 Tab 补齐。</p>
+<h3 id="wc："><a href="#wc：" class="headerlink" title="wc："></a>wc：</h3><p>Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<p>[root@Linux-Gaoke ~]# wc bivalves.txt<br>  12  393 2483 bivalves.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### diff:</div><div class="line"></div><div class="line">比较文件，显示文件不同之处。</div><div class="line"></div><div class="line">​```shell</div><div class="line">[root@Linux-Gaoke ~]# diff gastropods.txt gastropods_draft.txt </div><div class="line">5d4</div><div class="line">&lt; Sea Angel: Sea angels (clade Gymnosomata) are a large group of small, swimming sea slugs classified into six different families. In this clade, the foot of the gastropod has developed into wing-like flapping appendages (parapodia) and their shells have been lost. Both adaptations suit their free-swimming oceanic lives.</div></pre></td></tr></table></figure>
+<h3 id="cowsay"><a href="#cowsay" class="headerlink" title="cowsay:"></a>cowsay:</h3><p>这是个有趣的命令。首先要安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y cowsay</div></pre></td></tr></table></figure>
+<p>安装完了就可以用了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# cowsay Hello,Yuan!</div><div class="line"> _____________</div><div class="line">&lt; Hello,Yuan! &gt;</div><div class="line"> -------------</div><div class="line">        \   ^__^</div><div class="line">         \  (oo)\_______</div><div class="line">            (__)\       )\/\</div><div class="line">                ||----w |</div><div class="line">                ||     ||</div></pre></td></tr></table></figure>
+<p>是不是很可爱！还可以自定义字符，下面是用 v 代替牛舌头：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# cowsay -T v I love you!</div><div class="line"> _____________</div><div class="line">&lt; I love you! &gt;</div><div class="line"> -------------</div><div class="line">        \   ^__^</div><div class="line">         \  (oo)\_______</div><div class="line">            (__)\       )\/\</div><div class="line">             v ||----w |</div><div class="line">                ||     ||</div></pre></td></tr></table></figure>
+<p>还可以画企鹅：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# cowsay -f tux I love you,too!</div><div class="line"> _________________</div><div class="line">&lt; I love you,too! &gt;</div><div class="line"> -----------------</div><div class="line">   \</div><div class="line">    \</div><div class="line">        .--.</div><div class="line">       |o_o |</div><div class="line">       |:_/ |</div><div class="line">      //   \ \</div><div class="line">     (|     | )</div><div class="line">    /'\_   _/`\</div><div class="line">    \___)=(___/</div></pre></td></tr></table></figure>
+<h3 id="man-命令："><a href="#man-命令：" class="headerlink" title="man 命令："></a>man 命令：</h3><p>man 是手册页，不会就可以 man 一下。比如不知道 cowsay 更具体的用法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">man cowsay</div></pre></td></tr></table></figure>
+<p>会出现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">cowsay(1)                         General Commands Manual                         cowsay(1)</div><div class="line"></div><div class="line">NAME</div><div class="line">       cowsay/cowthink - configurable speaking/thinking cow (and a bit more)</div><div class="line"></div><div class="line">SYNOPSIS</div><div class="line">       cowsay  [-e  eye_string]  [-f cowfile] [-h] [-l] [-n] [-T tongue_string] [-W column]</div><div class="line">       [-bdgpstwy]</div></pre></td></tr></table></figure>
+<p>对于命令的详细介绍。</p>
+<h3 id="要谨慎的命令：rm-rf"><a href="#要谨慎的命令：rm-rf" class="headerlink" title="要谨慎的命令：rm -rf"></a>要谨慎的命令：rm -rf</h3><p>不要运行！会删除 Linux 的所有文件内容。</p>
+<p><code>-r</code> is for recursive, and <code>-f</code> is for force.</p>
+<p>Just to be clear: This command is not good for your system. Don’t run it. Keep watching …</p>
+<h1 id="Line-Based-Programs"><a href="#Line-Based-Programs" class="headerlink" title="Line Based Programs"></a>Line Based Programs</h1><h2 id="一次性与交互命令"><a href="#一次性与交互命令" class="headerlink" title="一次性与交互命令"></a>一次性与交互命令</h2><h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# ping baidu.com</div><div class="line">PING baidu.com (220.181.57.217) 56(84) bytes of data.</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=1 ttl=51 time=27.8 ms</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=2 ttl=51 time=28.0 ms</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=3 ttl=51 time=28.0 ms</div><div class="line">^C</div><div class="line">--- baidu.com ping statistics ---</div><div class="line">3 packets transmitted, 3 received, 0% packet loss, time 2003ms</div><div class="line">rtt min/avg/max/mdev = 27.862/27.967/28.032/0.155 ms</div></pre></td></tr></table></figure>
+<p>按 Ctrl + <strong>D</strong> 执行并退出。</p>
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# ping baidu.com</div><div class="line">PING baidu.com (220.181.57.217) 56(84) bytes of data.</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=1 ttl=51 time=27.8 ms</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=2 ttl=51 time=28.0 ms</div><div class="line">64 bytes from 220.181.57.217 (220.181.57.217): icmp_seq=3 ttl=51 time=28.0 ms</div><div class="line">^C</div><div class="line">--- baidu.com ping statistics ---</div><div class="line">3 packets transmitted, 3 received, 0% packet loss, time 2003ms</div><div class="line">rtt min/avg/max/mdev = 27.862/27.967/28.032/0.155 ms</div></pre></td></tr></table></figure>
+<p>按 Ctrl + <strong>C</strong> 退出。</p>
+<h3 id="bc："><a href="#bc：" class="headerlink" title="bc："></a>bc：</h3><p>计算器</p>
+<h3 id="less："><a href="#less：" class="headerlink" title="less："></a>less：</h3><p>相比于全部显示，显示更少的内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">less bivalves.txt</div></pre></td></tr></table></figure>
+<h3 id="nano-编辑器"><a href="#nano-编辑器" class="headerlink" title="nano 编辑器"></a>nano 编辑器</h3><p>这个的具体用法用到再补充吧。</p>
+<h1 id="Linux-文件系统"><a href="#Linux-文件系统" class="headerlink" title="Linux 文件系统"></a>Linux 文件系统</h1><h2 id="文件系统树"><a href="#文件系统树" class="headerlink" title="文件系统树"></a>文件系统树</h2><ul>
+<li>文件 文件名如果有空格，要加引号</li>
+<li>文件夹</li>
+</ul>
+<p>Linux 用正斜杠“/”区分路径。Win 用反的。</p>
+<p>/ 是根目录，~是主目录。</p>
+<h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>用 pwd 命令可以打印出工作目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# pwd</div><div class="line">/root</div></pre></td></tr></table></figure>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><p>切换目录用 cd:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd ..</div></pre></td></tr></table></figure>
+<p>这样会返回上一级。</p>
+<p> cd 不加参数会返回主目录（不是跟目录）。</p>
+<h3 id="mv-移动和-cp-复制"><a href="#mv-移动和-cp-复制" class="headerlink" title="mv 移动和 cp 复制"></a>mv 移动和 cp 复制</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv beach.jpg Photos</div></pre></td></tr></table></figure>
+<h3 id="mkdir-创建新目录"><a href="#mkdir-创建新目录" class="headerlink" title="mkdir 创建新目录"></a>mkdir 创建新目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir Photos</div></pre></td></tr></table></figure>
+<h3 id="rmdir-删除空目录"><a href="#rmdir-删除空目录" class="headerlink" title="rmdir 删除空目录"></a>rmdir 删除空目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rmdir Photos</div></pre></td></tr></table></figure>
+<p>当目录不是空的，要用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r junk(目录名)</div></pre></td></tr></table></figure>
+<p>将目录的内容清空。</p>
+<h3 id="glob-通配"><a href="#glob-通配" class="headerlink" title="glob 通配"></a>glob 通配</h3><p>用 <em> 表示，可以通配<em>*从 0 到 n 个</em></em>字符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@Linux-Gaoke ~]# ls *txt</div><div class="line">bivalves.txt     gastropods_draft.txt  mustelidae.txt</div><div class="line">cephalopods.txt  gastropods.txt        TheWindintheWillows.txt</div></pre></td></tr></table></figure>
+<p>每个包含 txt 的都会列出来。</p>
+<p>还有 ？ 号，一个问号代表<strong>一个</strong>字符。</p>
+<p>就先这样吧，后面再修改补充咯。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Gao Ke wechat" style="width: 200px; max-width: 100%;"/>
+    <div>微信扫一扫，订阅我的公众号</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/阿里云/" rel="tag"># 阿里云</a>
+          
+            <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/cjtgvsfjm0006pg0catp7pa34/" rel="next" title="Python2和Python3在敲代码层次的区别">
+                <i class="fa fa-chevron-left"></i> Python2和Python3在敲代码层次的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/20/cjtgvsfjo0007pg0cqt0hqg3u/" rel="prev" title="在阿里云ECS上运行Jupyter Notebook并远程访问">
+                在阿里云ECS上运行Jupyter Notebook并远程访问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODkwNS81NDc1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Gao Ke" />
+          <p class="site-author-name" itemprop="name">Gao Ke</p>
+           
+              <p class="site-description motion-element" itemprop="description">The Future is Now</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Geokeke" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005051965869821" target="_blank" title="微博">
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/64866737" target="_blank" title="豆瓣">
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/gao-ke-65" target="_blank" title="知乎">
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些-Linux-命令"><span class="nav-number">1.</span> <span class="nav-text">一些 Linux 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#断开与服务器的连接"><span class="nav-number">1.1.</span> <span class="nav-text">断开与服务器的连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exit"><span class="nav-number">1.1.1.</span> <span class="nav-text">exit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从网络下载文件"><span class="nav-number">1.2.</span> <span class="nav-text">从网络下载文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#curl"><span class="nav-number">1.2.1.</span> <span class="nav-text">curl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wget"><span class="nav-number">1.2.2.</span> <span class="nav-text">wget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">1.3.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">1.3.1.</span> <span class="nav-text">ls</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#More-Commands"><span class="nav-number">2.</span> <span class="nav-text">More Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#date："><span class="nav-number">2.0.1.</span> <span class="nav-text">date：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hostname"><span class="nav-number">2.0.2.</span> <span class="nav-text">hostname:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expr"><span class="nav-number">2.0.3.</span> <span class="nav-text">expr:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#host"><span class="nav-number">2.0.4.</span> <span class="nav-text">host:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">2.0.5.</span> <span class="nav-text">echo:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bash"><span class="nav-number">2.0.6.</span> <span class="nav-text">bash:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uname"><span class="nav-number">2.0.7.</span> <span class="nav-text">uname:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">2.0.8.</span> <span class="nav-text">history:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-删除："><span class="nav-number">2.0.9.</span> <span class="nav-text">rm 删除：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell-命令与-Python-函数的异同"><span class="nav-number">3.</span> <span class="nav-text">Shell 命令与 Python 函数的异同</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相同点："><span class="nav-number">3.1.</span> <span class="nav-text">相同点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同点："><span class="nav-number">3.2.</span> <span class="nav-text">不同点：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#uptime："><span class="nav-number">3.2.1.</span> <span class="nav-text">uptime：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-中的文件操作"><span class="nav-number">4.</span> <span class="nav-text">Linux 中的文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解压、合并等"><span class="nav-number">4.1.</span> <span class="nav-text">解压、合并等</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解压文件-unzip："><span class="nav-number">4.1.1.</span> <span class="nav-text">解压文件 unzip：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">4.1.2.</span> <span class="nav-text">cat :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc："><span class="nav-number">4.1.3.</span> <span class="nav-text">wc：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cowsay"><span class="nav-number">4.1.4.</span> <span class="nav-text">cowsay:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#man-命令："><span class="nav-number">4.1.5.</span> <span class="nav-text">man 命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要谨慎的命令：rm-rf"><span class="nav-number">4.1.6.</span> <span class="nav-text">要谨慎的命令：rm -rf</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Line-Based-Programs"><span class="nav-number">5.</span> <span class="nav-text">Line Based Programs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一次性与交互命令"><span class="nav-number">5.1.</span> <span class="nav-text">一次性与交互命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">5.1.1.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ping"><span class="nav-number">5.1.2.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bc："><span class="nav-number">5.1.3.</span> <span class="nav-text">bc：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less："><span class="nav-number">5.1.4.</span> <span class="nav-text">less：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nano-编辑器"><span class="nav-number">5.1.5.</span> <span class="nav-text">nano 编辑器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-文件系统"><span class="nav-number">6.</span> <span class="nav-text">Linux 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统树"><span class="nav-number">6.1.</span> <span class="nav-text">文件系统树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">6.1.1.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">6.1.2.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv-移动和-cp-复制"><span class="nav-number">6.1.3.</span> <span class="nav-text">mv 移动和 cp 复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir-创建新目录"><span class="nav-number">6.1.4.</span> <span class="nav-text">mkdir 创建新目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir-删除空目录"><span class="nav-number">6.1.5.</span> <span class="nav-text">rmdir 删除空目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#glob-通配"><span class="nav-number">6.1.6.</span> <span class="nav-text">glob 通配</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Ke</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
