@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.gaoke.online","root":"/","scheme":"Pisces","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+
+  <meta name="description" content="本文是关于2008年美国国内航班准点和延误情况的可视化，反映该年度四个季度的准点率、航班延误的原因及其比例。此项目用 D3、dimple等完成，主要用到的技术有Python、 JavaScript、HTML、CSS 等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美国航班可视化项目">
+<meta property="og:url" content="http://www.gaoke.online/2017/11/20/cke1kkb4s0015r3diedel4bai/index.html">
+<meta property="og:site_name" content="GaoKe">
+<meta property="og:description" content="本文是关于2008年美国国内航班准点和延误情况的可视化，反映该年度四个季度的准点率、航班延误的原因及其比例。此项目用 D3、dimple等完成，主要用到的技术有Python、 JavaScript、HTML、CSS 等。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-11-20T05:18:20.000Z">
+<meta property="article:modified_time" content="2017-11-20T05:45:17.000Z">
+<meta property="article:author" content="Gao Ke">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="可视化">
+<meta property="article:tag" content="dimple">
+<meta property="article:tag" content="D3">
+<meta property="article:tag" content="优达学城">
+<meta property="article:tag" content="Udacity">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.gaoke.online/2017/11/20/cke1kkb4s0015r3diedel4bai/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>美国航班可视化项目 | GaoKe</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">GaoKe</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">高珂的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88"><span class="nav-number">3.</span> <span class="nav-text">反馈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lemontechmaster-DAND-Forum-Mentor"><span class="nav-number">3.1.</span> <span class="nav-text">lemontechmaster (DAND Forum Mentor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90"><span class="nav-number">3.2.</span> <span class="nav-text">源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kirsch"><span class="nav-number">3.3.</span> <span class="nav-text">Kirsch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">资源</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gao Ke"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Gao Ke</p>
+  <div class="site-description" itemprop="description">The Future is Now</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoke.online/2017/11/20/cke1kkb4s0015r3diedel4bai/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Gao Ke">
+      <meta itemprop="description" content="The Future is Now">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoKe">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          美国航班可视化项目
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-11-20 13:18:20 / Modified: 13:45:17" itemprop="dateCreated datePublished" datetime="2017-11-20T13:18:20+08:00">2017-11-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文是关于2008年美国国内航班准点和延误情况的可视化，反映该年度四个季度的准点率、航班延误的原因及其比例。此项目用 D3、dimple等完成，主要用到的技术有Python、 JavaScript、HTML、CSS 等。</p>
+<a id="more"></a>
+
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>本项目是关于2008年美国国内航班准点和延误情况的可视化。我从<a target="_blank" rel="noopener" href="http://stat-computing.org/dataexpo/2009/the-data.html">美国统计协会</a>下载2008年美国航班的数据集并用 Python 清洗整理，最后将获得的数据做成环状图，反映该年度四个季度的准点率、航班延误的原因及其比例。</p>
+<p>最初可视化见<a target="_blank" rel="noopener" href="http://bl.ocks.org/Geokeke/raw/9a67de201d8146ef66a23eb6c4edcb35/">这里</a></p>
+<p>改进的可视化在<a target="_blank" rel="noopener" href="http://bl.ocks.org/Geokeke/raw/b828fad56084950d9074a521a88a836e/">这里</a></p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>本可视化项目计划回答如下问题：</p>
+<ol>
+<li>2008年全年及各季度，美国航班的准点率如何？</li>
+<li>2008年全年及各季度，美国航班的延误率如何？航班延误的原因有什么，各占多少百分比？</li>
+<li>季度不同，准点率、延误原因及比率是否会显著不同？</li>
+</ol>
+<p>要回答这些问题，我认为最合适的可视化是饼图或环形图，它们通过颜色来标识准点及延误原因，用角度（面积）代表准点航班和各延误原因所占百分比可以回答上述问题。另外，我认为环形图比饼图更简洁优美，故选择环形图完成此次可视化。</p>
+<p>通过此次可视化可以发现：</p>
+<ol>
+<li>2008年，美国全年平均准点率78%，各季度准点率也在这个值左右，最小值是第一季度73%，最大第三季度81%；</li>
+<li>全年延误率22%，各季度延误率也在这个值左右，最大值是第一季度27%，最小第三季度19%。延误原因主要有Aircraft Arriving Late和National Aviation System Delay，此外还有Air Carrier Delay、Cancelled &amp; Diverted、Extreme Weather、Security Delay，所占百分比依次降低；</li>
+<li>季度不同，准点率、延误原因及比率比较接近，没有显著变化。</li>
+</ol>
+<h2 id="反馈"><a href="#反馈" class="headerlink" title="反馈"></a>反馈</h2><h3 id="lemontechmaster-DAND-Forum-Mentor"><a href="#lemontechmaster-DAND-Forum-Mentor" class="headerlink" title="lemontechmaster (DAND Forum Mentor)"></a><a target="_blank" rel="noopener" href="https://discussions.youdaxue.com/u/lemontechmaster">lemontechmaster (DAND Forum Mentor)</a></h3><p>他回答了几个问题：</p>
+<ol>
+<li><p>你在这个可视化中注意到什么？</p>
+<p>大部分航班都是准点的。</p>
+</li>
+<li><p>你对这个数据有什么问题吗？</p>
+<p>除了大部分航班都是准点的这个信息外，其他的信息第一时间读不出来，你想要分享的故事（结论）是什么呢？</p>
+</li>
+<li><p>你是否注意到数据关系？</p>
+<p>On Time<br>Aircraft Arriving Late<br>National Aviation System Delay<br>Air Carrier Delay<br>Cancelled &amp; Diverted<br>Extreme Weather<br>Security Delay<br>占比依次递减。</p>
+</li>
+<li><p>你觉得这个可视化主要表达了什么？</p>
+<p>大部分航班是准点的，以及常见的航班延误原因。</p>
+</li>
+<li><p>这个图形中你有什么不明白的地方吗？</p>
+<p>无。</p>
+</li>
+</ol>
+<p>并给出了建议：4个图能否放置成2*2的矩阵排列呢？备注的文字信息能否再精简一些？</p>
+<h3 id="源"><a href="#源" class="headerlink" title="源"></a>源</h3><ol>
+<li>只看图例，不能够了解各延误原因的具体含义，可在下面添加解释；</li>
+<li>四张图这样排列不易于查看比较，最好做成带按钮的，点击哪个季度，显示哪个季度的图表。</li>
+</ol>
+<h3 id="Kirsch"><a href="#Kirsch" class="headerlink" title="Kirsch"></a>Kirsch</h3><p>这个可视化很直观地表现了准点率、航班延误原因及所占比率，一目了然。我注意到四张环状图各表现了四个季度的情况，但没有全年的可视化。可否将全年的加上？</p>
+<p>后面两位的反馈其实是实际情况加上我的想象哈哈。</p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://dimplejs.org/">http://dimplejs.org/</a></li>
+<li><a target="_blank" rel="noopener" href="https://d3js.org/">https://d3js.org/</a></li>
+<li><a target="_blank" rel="noopener" href="http://stat-computing.org/dataexpo/2009/the-data.html">Data</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag"># 可视化</a>
+              <a href="/tags/dimple/" rel="tag"># dimple</a>
+              <a href="/tags/D3/" rel="tag"># D3</a>
+              <a href="/tags/%E4%BC%98%E8%BE%BE%E5%AD%A6%E5%9F%8E/" rel="tag"># 优达学城</a>
+              <a href="/tags/Udacity/" rel="tag"># Udacity</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/11/11/cke1kkb4g000br3di6bbc9ytq/" rel="prev" title="“机器人三定律”与“听过很多道理”">
+                  <i class="fa fa-chevron-left"></i> “机器人三定律”与“听过很多道理”
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/11/27/cke1kkb4t0016r3di74wk0rb5/" rel="next" title="设计A/B测试">
+                  设计A/B测试 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Ke</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
