@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.gaoke.online","root":"/","scheme":"Pisces","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+
+  <meta name="description" content="最近做完了一个气象相关的模块，功能主要是提取选定年份和月份的指定气象指标的相似年。在做这个模块的过程中，用到了一些之前没有用过的函数和功能，在这里简单记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最近学到的数据分析技巧">
+<meta property="og:url" content="http://www.gaoke.online/2019/04/06/ckjtmyb4n000vredi4e3x5f30/index.html">
+<meta property="og:site_name" content="GaoKe">
+<meta property="og:description" content="最近做完了一个气象相关的模块，功能主要是提取选定年份和月份的指定气象指标的相似年。在做这个模块的过程中，用到了一些之前没有用过的函数和功能，在这里简单记录一下。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-04-06T05:25:24.000Z">
+<meta property="article:modified_time" content="2019-04-06T06:38:39.000Z">
+<meta property="article:author" content="Gao Ke">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="Pandas">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://www.gaoke.online/2019/04/06/ckjtmyb4n000vredi4e3x5f30/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>最近学到的数据分析技巧 | GaoKe</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">GaoKe</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">高珂的博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#df-sort-values-%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">df.sort_values() 排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">日期的处理</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gao Ke"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Gao Ke</p>
+  <div class="site-description" itemprop="description">The Future is Now</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://www.gaoke.online/2019/04/06/ckjtmyb4n000vredi4e3x5f30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Gao Ke">
+      <meta itemprop="description" content="The Future is Now">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoKe">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          最近学到的数据分析技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-04-06 13:25:24 / Modified: 14:38:39" itemprop="dateCreated datePublished" datetime="2019-04-06T13:25:24+08:00">2019-04-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近做完了一个气象相关的模块，功能主要是提取选定年份和月份的指定气象指标的相似年。在做这个模块的过程中，用到了一些之前没有用过的函数和功能，在这里简单记录一下。</p>
+<a id="more"></a>
+
+<p>主要用到了 Pandas 的 DataFrame 。</p>
+<h2 id="df-sort-values-排序"><a href="#df-sort-values-排序" class="headerlink" title="df.sort_values() 排序"></a>df.sort_values() 排序</h2><p>例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.sort_values(by=[<span class="string">&#x27;year_mon&#x27;</span>, <span class="string">&#x27;climate_index&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>就是根据 ‘year_mon’ 和 ‘climate_index’ 排序，可以选定多个，先按照 year_mon 排，再按照 climate_index 排。</p>
+<h2 id="日期的处理"><a href="#日期的处理" class="headerlink" title="日期的处理"></a>日期的处理</h2><p>将日期字符串转换为时间格式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.to_datetime(df[<span class="string">&#x27;year_mon&#x27;</span>],format=<span class="string">&#x27;%Y/%m/%d&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>year_mon 是 df 里的一列，包含类似 <code>1970/09/01</code> 的字符串，经过上面代码的处理，就转变为时间格式，可以按照处理时间的方式处理它。</p>
+<p>选择想要的年份、月份和日子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;year_mon&#x27;</span>].year == <span class="number">1992</span></span><br><span class="line">df[<span class="string">&#x27;year_mon&#x27;</span>].month == <span class="number">6</span></span><br><span class="line">df[<span class="string">&#x27;year_mon&#x27;</span>].day == <span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<p>若是选择多个月份，则可以用 isin() 函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;year_mon&#x27;</span>].month.isin([<span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>])</span><br></pre></td></tr></table></figure>
+
+<p>这样就选了 3 月、6 月和 9 月的。</p>
+<p>如果要按年、月、日分组做计算，可以：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;year_mon&#x27;</span>].resample(<span class="string">&#x27;M&#x27;</span>, how = <span class="string">&#x27;mean&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>M 是按月，还可以按季度（Q）、天（D）等。</p>
+<p>先记录这些吧。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/Pandas/" rel="tag"># Pandas</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/04/06/ckjtmyb4j000mredifd3d1ulr/" rel="prev" title="保护电池又玩得舒爽的手机操作指南">
+                  <i class="fa fa-chevron-left"></i> 保护电池又玩得舒爽的手机操作指南
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/08/20/ckjtmyb4a0007redieupjhg8h/" rel="next" title="Julia way for loops">
+                  Julia way for loops <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Ke</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
