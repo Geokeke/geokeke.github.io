@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Anaconda配置多Python开发环境">
+<meta property="og:url" content="https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/index.html">
+<meta property="og:site_name" content="Ke">
+<meta property="og:description" content="最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-08-12T21:09:11.000Z">
+<meta property="article:modified_time" content="2017-08-19T09:05:13.000Z">
+<meta property="article:author" content="Ke Gao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Anaconda">
+<meta property="article:tag" content="开发环境">
+<meta property="article:tag" content="Conda">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>用Anaconda配置多Python开发环境</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Geokeke">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2017/08/13/clgl0debb000877di8mt31i5m/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2017/07/30/clgl0debq001h77di5wxeckol/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&text=用Anaconda配置多Python开发环境"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&is_video=false&description=用Anaconda配置多Python开发环境"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用Anaconda配置多Python开发环境&body=Check out this article: https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&name=用Anaconda配置多Python开发环境&description=&lt;p&gt;最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&t=用Anaconda配置多Python开发环境"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">创建新环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">激活环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83"><span class="toc-number">4.</span> <span class="toc-text">切换环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E5%9C%A8%E7%8E%AF%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">查看所在环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E6%BF%80%E6%B4%BB%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">6.</span> <span class="toc-text">在激活环境下安装包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%8E%AF%E5%A2%83"><span class="toc-number">7.</span> <span class="toc-text">删除环境</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        用Anaconda配置多Python开发环境
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Ke Gao</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-08-12T21:09:11.000Z" class="dt-published" itemprop="datePublished">2017-08-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="p-category" href="/tags/Anaconda/" rel="tag">Anaconda</a>, <a class="p-category" href="/tags/Conda/" rel="tag">Conda</a>, <a class="p-category" href="/tags/Python/" rel="tag">Python</a>, <a class="p-category" href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="tag">开发环境</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。</p>
+<span id="more"></span>
+<p>前 7
+本（基地系列）快看完了，最近萌生了用机器学习的方法将其分析一下的想法，于是从昨晚开始捣鼓。然后发现
+Python 2
+存在编码问题，对于中文的支持十分不友好，让我感觉无从下手。请教了<a
+target="_blank" rel="noopener" href="https://github.com/clarkyu2016">Clark Yu</a>，他建议我装一个
+Python 3 与现在的 Anaconda 2 并存，Python 3 就不存在 2
+的编码问题。于是我 Google 加动手，建了一个 Python 3
+的环境，现在将用Anaconda配置多Python开发环境的方法整理记录下来。</p>
+<p>在配置之前，我的 Windows 里装了 Anaconda 2，是 Python 2
+的一个发行版，它里面包含了一个叫 conda 的包，这个包就是配置多 Python
+开发环境的关键。</p>
+<h1 id="准备工作">准备工作</h1>
+<p>在开始配置多 Python 开发环境前，首先电脑上有 conda，因为我之前装了
+Anaconda 2，所以电脑上已经有了。</p>
+<p>然后要检查 conda 版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br></pre></td></tr></table></figure>
+<p>然后检查一下是不是最新版，如果不是，升级到最新版：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
+<p>完成上述，就可以创建新环境啦。</p>
+<h1 id="创建新环境">创建新环境</h1>
+<p>使用 conda 创建新环境的方法如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于 python3 创建一个名为 py3 的环境</span></span><br><span class="line">conda create <span class="literal">--name</span> py3 python=<span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于 python2 创建一个名为 py2 的环境</span></span><br><span class="line">conda create <span class="literal">--name</span> py2 python=<span class="number">2.7</span></span><br></pre></td></tr></table></figure>
+<p>或者要创建 Anaconda 环境：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于 python3 创建一个名为 py3 的环境</span></span><br><span class="line">conda create <span class="literal">-n</span> py3 python=<span class="number">3</span> anaconda</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于 python2 创建一个名为 py2 的环境</span></span><br><span class="line">conda create <span class="literal">-n</span> py2 python=<span class="number">2</span> anaconda</span><br></pre></td></tr></table></figure>
+<p>这样我就有了一个名字为 py3 的 Python 3 环境和一个叫 py2 的 Python 2
+环境。</p>
+<h1 id="激活环境">激活环境</h1>
+<p>如何激活环境呢？</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 激活 test 环境</span></span><br><span class="line">activate py2  <span class="comment"># windows</span></span><br><span class="line">source activate py2 <span class="comment"># linux/mac</span></span><br></pre></td></tr></table></figure>
+<p>要注意的是此命令要在 <strong>CMD</strong> 命令提示符下才有效，亲测在
+PowerShell 下无法顺利激活环境。</p>
+<h1 id="切换环境">切换环境</h1>
+<p>好了，知道如何激活了，那如何切换到另外一个环境呢（py2 to
+py3）？也很简单：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到python3</span></span><br><span class="line">activate py3</span><br></pre></td></tr></table></figure>
+<p>如要切换到 root 环境，则：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+<h1 id="查看所在环境">查看所在环境</h1>
+<p>建立了几个 Python 开发环境，那么如何查看都有哪些？</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda info <span class="literal">-e</span></span><br></pre></td></tr></table></figure>
+<p>这会列出所有环境，标有*号的是现在所在环境。</p>
+<h1 id="在激活环境下安装包">在激活环境下安装包</h1>
+<p>conda 的包管理功能是对 pip
+的一种补充，如果当前已经激活了某个Python环境，那么就可以在当前环境开始安装第三方包。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 matplotlib </span></span><br><span class="line">conda install matplotlib</span><br><span class="line"><span class="comment"># 查看已安装的包</span></span><br><span class="line">conda list </span><br><span class="line"><span class="comment"># 包更新</span></span><br><span class="line">conda update matplotlib</span><br><span class="line"><span class="comment"># 删除包</span></span><br><span class="line">conda remove matplotlib</span><br></pre></td></tr></table></figure>
+<p>对于那些用 pip 无法安装成功的模块你都可以尝试用 conda 来安装，如果用
+conda 找不到相应的包，当然你继续选择 pip 来安装包也是没问题的。</p>
+<h1 id="删除环境">删除环境</h1>
+<p>如果想删除一个环境，怎么操作？</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove <span class="literal">-n</span> py2 <span class="literal">--all</span></span><br></pre></td></tr></table></figure>
+<p>这样，就形成了一套完美的配置多 Python
+开发环境方案。以后遇到新操作再补充咯。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/Geokeke">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">创建新环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BF%80%E6%B4%BB%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">激活环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83"><span class="toc-number">4.</span> <span class="toc-text">切换环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E5%9C%A8%E7%8E%AF%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">查看所在环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E6%BF%80%E6%B4%BB%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">6.</span> <span class="toc-text">在激活环境下安装包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%8E%AF%E5%A2%83"><span class="toc-number">7.</span> <span class="toc-text">删除环境</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&text=用Anaconda配置多Python开发环境"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&is_video=false&description=用Anaconda配置多Python开发环境"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用Anaconda配置多Python开发环境&body=Check out this article: https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&title=用Anaconda配置多Python开发环境"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&name=用Anaconda配置多Python开发环境&description=&lt;p&gt;最近在学习机器学习，同时在看阿西莫夫的《银河帝国》系列小说。其实我很久之前就不打算看虚构类的书了，但我有情调又有生活品味的女朋友是个科幻迷，在她的怂恿下我试着开始看这系列小说，正好出野外，看这种不太费脑的书也合适。不看不要紧，看着看着就被阿西莫夫只比银河系略大的脑洞震撼到了，看到引人入胜的情节，不禁拍手叫好赞叹不已。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://geokeke.github.io/2017/08/12/clgl0debm001477di3owk9fkn/&t=用Anaconda配置多Python开发环境"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2017-2023
+    Ke Gao
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/Geokeke">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
